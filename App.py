@@ -27,7 +27,7 @@ def buy_item(item, character):
             print("You bought a(n) ", item, " ; OuO have fun with it!")
         else:
             print("Too poor!")
-is_knife_bought = False
+
 character = {
     "name" : "I didn't pick a name. Shame on me!",
     "level" : 1,
@@ -42,21 +42,18 @@ character = {
     "atk" : 10,
     "magicAtk" : 1,
     "def" : 10,
-    "weapname" : "None Equipped",
-    "weapatk" : 0,
-    "magicboost" : 0,
-    "weaptype" : "null",
 }
 
 inv = {
 
 }
 
+is_knife_bought = False
 hasGrandmaster = False
 hasNoobSword = False
 hasSpear = False
 hasShield = False
-
+golden_knife_bought = False
 
 weapon ={
     "name" : "none",
@@ -463,7 +460,9 @@ while running:
                                 print("You too poor to buy Winner Lootbox Key! Go get money!")
                         elif WhatPurchase == "c":
                             if character["cash"] >= 175 - HowMuchOff:
-                                print("You bought a Smol Golden Dirk. Now you just need to encase yourself in gold.....\n You also automatically equipped it. It's Golden aura gave you the effects without using it at all o3o")
+                                print("You bought a Smol Golden Dirk. Now you just need to encase yourself in gold.....\n"
+                                 "You also automatically equipped it. It's Golden aura gave you the effects without using it at all o3o")
+                                 golden_knife_bought = True
                                 character["bcash"] += 10
                                 character["cash"] -= 175 - HowMuchOff
                                 NoPurchase = False
@@ -1026,6 +1025,29 @@ while running:
                                 stat_update = False
                     elif Choice == 'c':
                         #ToDo
+                        if hasGrandmaster or hasShield or hasNoobSword or hasSpear or is_knife_bought or golden_knife_bought:
+                            print("Equip which weapon?")
+                            if hasGrandmaster:
+                                print("G) Grandmaster Wand")
+                            elif hasNoobSword:
+                                print("N) Noob Sword")
+                            elif hasSpear:
+                                print("S) Spear of Pokey-Pokes")
+                            elif is_knife_bought:
+                                print("K) Noob Knife")
+                            elif golden_knife_bought:
+                                print("Go) Golden Knife")
+                            initiate = True
+                            if initiate:
+                                weap = input("Equip your weapon, please!").__lower__()
+                                if weap == "g":
+                                    weapon.clear()
+                                    weapon.append({
+                                        "name": "Grandmaster Wand",
+                                    })
+                        else:
+                            print("Don't have any weapons!")
+                            profile_menu = False
                     else:
                         profile_menu = False
 
