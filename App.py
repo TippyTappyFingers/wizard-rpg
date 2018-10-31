@@ -338,15 +338,14 @@ while running:
                         character["exp"] += monster["xp"]
                         print("B O O Y A H ! You gained ", monster["xp"] , " Experience Points! :^)")
                         while character["exp"] >= character["exp_to_lvl"]:
-                            if character["exp"] >= character["exp_to_lvl"]:
-                                character["level"] += 1
-                                character["exp"] -= character["exp_to_lvl"]
-                                character["exp_to_lvl"] += character["level"]
-                                character["atk"] += 2
-                                character["mp"] += 50
-                                character["hp"] = character["maxhp"]
-                                character["statpoints"] += 1
-                                print("I===========================I \n B O O Y A H !  Y O U  L E V E L E D  U P ! You are level ", character["level"],
+                            character["level"] += 1
+                            character["exp"] -= character["exp_to_lvl"]
+                            character["exp_to_lvl"] += character["level"]*2
+                            character["atk"] += 2
+                            character["mp"] += 50
+                            character["hp"] = character["maxhp"]
+                            character["statpoints"] += 1
+                            print("I===========================I \n B O O Y A H !  Y O U  L E V E L E D  U P ! You are level ", character["level"],
                                       " ! Congratulations :^)\n I=============================I")
                         character["cash"] += monster["reward"]
                         character["cash"] += character["bcash"]
@@ -462,7 +461,7 @@ while running:
                             if character["cash"] >= 175 - HowMuchOff:
                                 print("You bought a Smol Golden Dirk. Now you just need to encase yourself in gold.....\n"
                                  "You also automatically equipped it. It's Golden aura gave you the effects without using it at all o3o")
-                                 golden_knife_bought = True
+                                golden_knife_bought = True
                                 character["bcash"] += 10
                                 character["cash"] -= 175 - HowMuchOff
                                 NoPurchase = False
@@ -951,8 +950,11 @@ while running:
                         print("  ATK: " + character['atk'].__str__())
                         print("  DEF: " + character['def'].__str__())
                         print("I======Items======I")
-                        for item in character["inv"]:
-                            print(item)
+                        if len(inv) <= 0:
+                            print("None")
+                        else:
+                            for item in inv:
+                                print(item)
                     elif Choice == 'b':
                         prompt = 0
                         stat_update = True
@@ -1041,9 +1043,29 @@ while running:
                             if initiate:
                                 weap = input("Equip your weapon, please!").__lower__()
                                 if weap == "g":
+                                    character["atk"] -= weapon["atk"]
                                     weapon.clear()
                                     weapon.append({
                                         "name": "Grandmaster Wand",
+                                        "atk": 1600,
+                                        "magicboost": 99999999999999,
+                                        "type": "wand",
+                                    })
+                                    character["atk"] += weapon["atk"]
+                                elif weap == "n":
+                                    character["atk"] -= weapon["atk"]
+                                    weapon.clear()
+                                    weapon.append({
+                                        "name": "Noob Sword",
+                                        "atk": 140,
+                                        "magicboost": 10,
+                                        "type": "sword",
+                                    })
+                                    character["atk"] += weapon["atk"]
+                                elif weap == 's':
+                                    weapon.clear()
+                                    weapon.append({
+
                                     })
                         else:
                             print("Don't have any weapons!")
