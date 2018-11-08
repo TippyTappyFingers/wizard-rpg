@@ -55,12 +55,7 @@ hasSpear = False
 hasShield = False
 golden_knife_bought = False
 
-weapon ={
-    "name" : "none",
-    "atk" : 0,
-    "magicboost" : 0,
-    "type" : "none"
-}
+weapon = ['none', 0, 0, 'null']
 
 def print_store_list(list):
     for counter in range(0, len(list)):
@@ -249,6 +244,21 @@ while running:
                 character["hp"] = character["maxhp"]
             if choice == "x":
                 kappa = False
+            elif choice == "master.command.__init__()":
+                chicken = input("Master Command Prompt Active. Command? >> ")
+                if chicken == 'generate.exp()':
+                    character["exp"] += character["exp_to_lvl"] * 3
+                    print("Have a nice day!")
+                elif chicken == 'generate.godmode()':
+                    question = input("generate.godmode() requires password "
+                    "to initiate. Insert MasterPassword to continue. >> ")
+                    if question == 'p134s3 1et m3 p4ss':
+                        character["atk"] += 10000000000
+                        character["def"] += 10000000000
+                        character["exp"] += 10000000000
+                        character["maxhp"] += 10000000000
+                        character["hp"] = character["maxhp"]
+                        print("generate.godmode() active.")
             elif choice == "a":
                 input("You are looking very hard for a monster right now.....")
                 monster = monster_dict[random.randrange(0, len(monster_dict))].copy()
@@ -666,7 +676,7 @@ while running:
                             input("A N D  T H E  V I C T O R  I S  D E C I D E D! ")
                             print(character["name"]+ " H A S  W O N  T H E  M A T C H, A L O N G  "
                                                      "W I T H "+ wager.__str__()+ "G!"
-                                                     " A N O T H E R  C H A L L E N G E R  W I L L  A R R I V E  "
+                                                     "\n A N O T H E R  C H A L L E N G E R  W I L L  A R R I V E  "
                                                      "S H O R T L Y! >> ")
                             input("Waiting for player's response... >> ")
                             character["cash"] += wager
@@ -792,7 +802,7 @@ while running:
                                 input("A N D  T H E  V I C T O R  I S  D E C I D E D! ")
                                 print(character["name"], " H A S  W O N  T H E  M A T C H, A L O N G  W I T H ",
                                       wager.__str__(),
-                                      "G! A N O T H E R  C H A L L E N G E R  W I L L  A R R I V E  S H O R T L Y! >> ")
+                                      "G!\n A N O T H E R  C H A L L E N G E R  W I L L  A R R I V E  S H O R T L Y! >> ")
                                 input("Waiting for player's response... >> ")
                                 character["cash"] += wager
                                 battle = False
@@ -918,9 +928,8 @@ while running:
                                     battle = False
                             else:
                                 input("A N D  T H E  V I C T O R  I S  D E C I D E D! ")
-                                print(character["name"], " H A S  W O N  T H E  M A T C H, A L O N G  W I T H ",
-                                      wager.__str__(),
-                                      "G! A N O T H E R  C H A L L E N G E R  W I L L  A R R I V E  S H O R T L Y! >> ")
+                                print(character["name"], " H A S  W O N  T H E  T O U R N A M E N T , A L O N G  W I T H ",
+                                      wager.__str__(), "G!")
                                 input("Waiting for player's response... >> ")
                                 character["cash"] += wager
                                 battle = False
@@ -1041,32 +1050,34 @@ while running:
                                 print("Go) Golden Knife")
                             initiate = True
                             if initiate:
-                                weap = input("Equip your weapon, please!").__lower__()
+                                weap = input("Equip your weapon, please!").lower()
                                 if weap == "g":
-                                    character["atk"] -= weapon["atk"]
+                                    character["atk"] -= weapon[1]
                                     weapon.clear()
-                                    weapon.append({
-                                        "name": "Grandmaster Wand",
-                                        "atk": 1600,
-                                        "magicboost": 99999999999999,
-                                        "type": "wand",
-                                    })
-                                    character["atk"] += weapon["atk"]
+                                    weapon = ['Grandmaster Wand', 100,
+                                    1600, 'Wand']
+                                    character["atk"] += weapon[1]
                                 elif weap == "n":
-                                    character["atk"] -= weapon["atk"]
+                                    character["atk"] -= weapon[1]
                                     weapon.clear()
-                                    weapon.append({
-                                        "name": "Noob Sword",
-                                        "atk": 140,
-                                        "magicboost": 10,
-                                        "type": "sword",
-                                    })
-                                    character["atk"] += weapon["atk"]
+                                    weapon = ['Noob Sword', 100, 18, 'Sword']
+                                    character["atk"] += weapon[1]
                                 elif weap == 's':
+                                    character['atk'] -= weapon[1]
                                     weapon.clear()
-                                    weapon.append({
-
-                                    })
+                                    weapon = ['Spear of Pokey Pokes', 150, 27,
+                                    'Spear']
+                                    character['atk'] += weapon[1]
+                                elif weap == 'k':
+                                    character['atk'] -= weapon[1]
+                                    weapon.clear()
+                                    weapon = ['Noob Knife', 5, 4, 'Knife']
+                                    character['atk'] += weapon[1]
+                                elif weap == 'go':
+                                    character['atk'] -= weapon[1]
+                                    weapon.clear()
+                                    weapon = ['Golden Knife', 75, 16, 'Knife']
+                                    character['atk'] += weapon[1]
                         else:
                             print("Don't have any weapons!")
                             profile_menu = False
